@@ -46,7 +46,7 @@
 /* -------------------------------- Authors -------------------------------- */
 /*
  *  LeFr  Leandro Francucci  lf@vortexmakes.com
- *  DaBa  Dario Baliña       dariosb@gmail.com
+ *  DaBa  Dario Baliña       db@vortexmakes.com
  */
 /* --------------------------------- Notes --------------------------------- */
 /* ----------------------------- Include files ----------------------------- */
@@ -69,7 +69,7 @@
  */
 #define BSP_TS_RATE_HZ              CLOCKS_PER_SEC
 
-#define TRACE_CFG_CONSOLE_OPTIONS   "t:f:p:h"
+#define TRACE_CFG_CONSOLE_OPTIONS   "st:f:p:h"
 
 /* ---------------------------- Local data types --------------------------- */
 /* ---------------------------- Global variables --------------------------- */
@@ -78,6 +78,7 @@ static char *opts = (char *)TRACE_CFG_CONSOLE_OPTIONS;
 static const char *helpMessage =
 {
     "\nOption usage:\n"
+	"\t -s silence\n"
     "\t -f File name for binary trace output\n"
     "\t -t ipaddr of TCP trace client\n"
     "\t -p port of TCP trace client\n"
@@ -86,7 +87,7 @@ static const char *helpMessage =
 
 static TRACE_CFG_ST config =
 {
-    "", TCP_TRC_IP_ADDR_DFT, TCP_TRC_PORT_DFT
+    "", TCP_TRC_IP_ADDR_DFT, TCP_TRC_PORT_DFT, 0
 };
 
 static FILE *ftbin = NULL;
@@ -103,6 +104,10 @@ trace_io_setConfig(int argc, char **argv)
     while ((c = getopt(argc, argv, opts)) != EOF)
         switch (c)
         {
+			case 's':
+                config.silence = 1;
+				break;
+
             case 'f':
                 strncpy(config.ftbinName, optarg, FTBIN_NAME_STR_LEN);
                 break;
@@ -127,6 +132,9 @@ rkh_trc_open(void)
 {
     rkh_trc_init();
 
+    if(config.silence == 1)
+        return;
+
     if (strlen(config.ftbinName) != 0)
     {
         if ((ftbin = fopen(config.ftbinName, "w+b")) == NULL)
@@ -149,6 +157,9 @@ rkh_trc_open(void)
 void
 rkh_trc_close(void)
 {
+    if(config.silence == 1)
+        return;
+
     if (ftbin != NULL)
     {
         fclose(ftbin);
@@ -177,6 +188,9 @@ rkh_trc_flush(void)
         RKH_ENTER_CRITICAL_();
         blk = rkh_trc_get_block(&nbytes);
         RKH_EXIT_CRITICAL_();
+
+		if (config.silence == 1)
+			break;
 
         if ((blk != (rui8_t *)0))
         {
