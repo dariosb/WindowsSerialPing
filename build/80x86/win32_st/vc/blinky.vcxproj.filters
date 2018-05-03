@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\rkh\source\fwk\src\rkhfwk_bittbl.c">
+      <Filter>rkh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\rkh\source\fwk\src\rkhfwk_dynevt.c">
+      <Filter>rkh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\rkh\source\fwk\src\rkhfwk_evtpool.c">
+      <Filter>rkh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\rkh\source\fwk\src\rkhfwk_sched.c">
+      <Filter>rkh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\rkh\source\fwk\src\rkhfwk_version.c">
+      <Filter>rkh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\rkh\source\mempool\src\rkhmempool.c">
+      <Filter>rkh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\rkh\source\portable\80x86\win32_st\vc\rkhport.c">
+      <Filter>rkh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\rkh\source\queue\src\rkhqueue.c">
+      <Filter>rkh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\rkh\source\sm\src\rkhsm.c">
+      <Filter>rkh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\rkh\source\sma\src\rkhsma.c">
+      <Filter>rkh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\rkh\source\sma\src\rkhsma_prio.c">
+      <Filter>rkh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\rkh\source\sma\src\rkhsma_sync.c">
+      <Filter>rkh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\rkh\source\tmr\src\rkhtmr.c">
+      <Filter>rkh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\rkh\source\trc\src\rkhtrc_filter.c">
+      <Filter>rkh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\rkh\source\trc\src\rkhtrc_record.c">
+      <Filter>rkh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\rkh\source\trc\src\rkhtrc_stream.c">
+      <Filter>rkh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\bsp\80x86\win\assert.c">
+      <Filter>bsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\bsp\80x86\win\bsp.c">
+      <Filter>bsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\bsp\80x86\win\getopt.c">
+      <Filter>bsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\bsp\80x86\win\hook.c">
+      <Filter>bsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\bsp\80x86\win\trace_io.c">
+      <Filter>bsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\bsp\80x86\win\trace_io_tcp.c">
+      <Filter>bsp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\ssp\src\ssp.c">
+      <Filter>ssp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\aos\ping\ping.c">
+      <Filter>aos\ping</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\main.c" />
+    <ClCompile Include="..\..\..\..\aos\ping\ping_ssp.c">
+      <Filter>aos\ping</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="rkh">
+      <UniqueIdentifier>{da2fd889-7548-4bad-8240-8c34034e9a1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bsp">
+      <UniqueIdentifier>{d13793e5-b7aa-446b-aff6-ffe09fcdbce0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bsp\serial">
+      <UniqueIdentifier>{4f531c09-358a-4882-bbc3-2a86fd008922}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bsp\serial\x86">
+      <UniqueIdentifier>{859511f6-3a91-4458-9b26-e2a4bfa223f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bsp\errors">
+      <UniqueIdentifier>{a12b6c8a-2d6c-4234-9d17-073b6ac77376}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ssp">
+      <UniqueIdentifier>{86704938-4163-4798-ab82-811df96cd54d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="aos">
+      <UniqueIdentifier>{569708bf-8a07-44eb-af49-1b64ee9a9e98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="aos\ping">
+      <UniqueIdentifier>{81766fec-7482-427f-8c1b-51a0bc2b49d7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\bsp\80x86\win\serial\wserdefs.h">
+      <Filter>bsp\serial\x86</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\bsp\80x86\win\serial\wserial.h">
+      <Filter>bsp\serial\x86</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\ssp\src\ssp.h">
+      <Filter>ssp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\aos\ping\ping.h">
+      <Filter>aos\ping</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\rkhcfg.h" />
+    <ClInclude Include="..\..\..\..\aos\ping\ping_ssp.h">
+      <Filter>aos\ping</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\..\..\..\bsp\80x86\win\serial\winbsp.lib">
+      <Filter>bsp\serial\x86</Filter>
+    </Library>
+  </ItemGroup>
+</Project>
