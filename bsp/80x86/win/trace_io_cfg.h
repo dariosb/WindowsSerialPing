@@ -73,6 +73,7 @@ typedef struct
     char ftbinName[FTBIN_NAME_STR_LEN];
     char tcpIpAddr[TCP_IPADDR_STR_LEN];
     short tcpPort;
+    char silence;
 } TRACE_CFG_ST;
 
 /* -------------------------- External variables --------------------------- */
