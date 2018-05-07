@@ -54,12 +54,14 @@
 #include <stdio.h>
 
 #include "ping.h"
+#include "pong.h"
+#include "ping_ssp.h"
+#include "pong_ssp.h"
 #include "bsp.h"
 #include "rkh.h"
 #include "trace_io_cfg.h"
 #include "wserial.h"
 #include "wserdefs.h"
-#include "ping.h"
 #include "ssp.h"
 
 RKH_THIS_MODULE
@@ -70,12 +72,19 @@ RKH_THIS_MODULE
 
 /* ---------------------------- Local data types --------------------------- */
 /* ---------------------------- Global variables --------------------------- */
-SERIAL_T serials[ NUM_CHANNELS ] =
+SERIAL_T serials[NUM_CHANNELS] =
 {
-	{	"COM8",	115200, 8, PAR_NONE, STOP_1, 0 },	// COM1
+	{	"COM3",	115200, 8, PAR_NONE, STOP_1, 0 },
+	{	"COM6",	115200, 8, PAR_NONE, STOP_1, 0 },
 };
 
 /* ---------------------------- Local variables ---------------------------- */
+static SERIAL_CBACK_T serialCback[NUM_CHANNELS] =
+{
+    { ping_ssp_doSearch, NULL, NULL, NULL, NULL, NULL, NULL },
+    { pong_ssp_doSearch, NULL, NULL, NULL, NULL, NULL, NULL },
+};
+
 static RKH_ROM_STATIC_EVENT(e_Term, evTerminate);
 
 /* ----------------------- Local function prototypes ----------------------- */
@@ -123,6 +132,7 @@ bsp_keyParser(int c)
     if (c == ESC)
     {
         RKH_SMA_POST_FIFO(ping, &e_Term, 0);
+        RKH_SMA_POST_FIFO(pong, &e_Term, 0);
         rkhport_fwk_stop();
     }
 }
@@ -132,54 +142,26 @@ bsp_timeTick(void)
 {
 }
 
-static
 void
-ser_rx_isr( unsigned char byte )
+bsp_serial_open(int ch)
 {
-    ssp_doSearch(byte);
-}
-
-static
-void
-ser_tx_isr( void )
-{
-}
-
-/*
- * Serial port callbacks
- */
-static SERIAL_CBACK_T ser_cback =
-{
-	ser_rx_isr,
-	NULL,
-	NULL,
-	ser_tx_isr,
-	NULL,
-	NULL,
-	NULL
-};
-
-void
-bsp_serial_open(void)
-{
-	init_serial_hard(TEST_PORT, &ser_cback );
-	connect_serial(TEST_PORT);
-    tx_data(TEST_PORT, 'O');
+	init_serial_hard(ch, &serialCback[ch] );
+	connect_serial(ch);
 }
 
 void
-bsp_serial_close(void)
+bsp_serial_close(int ch)
 {
-	disconnect_serial(TEST_PORT);
-	deinit_serial_hard(TEST_PORT);
+	disconnect_serial(ch);
+	deinit_serial_hard(ch);
 }
 
 void
-bsp_serial_puts(char *p)
+bsp_serial_puts(int ch, char *p)
 {
     while(*p!='\0')
 	{
-        tx_data(TEST_PORT, *p);
+        tx_data(ch, *p);
 		++p;
 	}
 }
@@ -188,7 +170,13 @@ void
 bsp_send_ping(void)
 {
 	printf("Ping ->\n");
-	bsp_serial_puts("ping\r\n");
+	bsp_serial_puts(PING_PORT, "ping\r\n");
+}
+
+void
+bsp_send_pong(void)
+{
+	bsp_serial_puts(PONG_PORT, "pong\r\n");
 }
 
 void

@@ -17,6 +17,7 @@
 /* ----------------------------- Include files ----------------------------- */
 #include "rkh.h"
 #include "ping.h"
+#include "pong.h"
 #include "bsp.h"
 
 
@@ -27,7 +28,8 @@
 /* ---------------------------- Local data types --------------------------- */
 /* ---------------------------- Global variables --------------------------- */
 /* ---------------------------- Local variables ---------------------------- */
-static RKH_EVT_T *qsto[QSTO_SIZE];
+static RKH_EVT_T *pingQsto[QSTO_SIZE];
+static RKH_EVT_T *pongQsto[QSTO_SIZE];
 
 /* ----------------------- Local function prototypes ----------------------- */
 /* ---------------------------- Local functions ---------------------------- */
@@ -37,7 +39,8 @@ main(int argc, char *argv[])
 {
     bsp_init(argc, argv);
 
-    RKH_SMA_ACTIVATE(ping, qsto, QSTO_SIZE, 0, 0);
+	RKH_SMA_ACTIVATE(pong, pongQsto, QSTO_SIZE, 0, 0);
+	RKH_SMA_ACTIVATE(ping, pingQsto, QSTO_SIZE, 0, 0);
     rkh_fwk_enter();
 
     RKH_TRC_CLOSE();

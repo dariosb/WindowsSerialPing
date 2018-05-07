@@ -99,7 +99,7 @@ ping_init(Ping *const me, RKH_EVT_T *pe)
 
 	ping_ssp_init();
 
-    bsp_serial_open();
+    bsp_serial_open(PING_PORT);
 
     send_ping(me, NULL);
 }
@@ -110,7 +110,7 @@ close(Ping *const me, RKH_EVT_T *pe)
 {
 	(void)pe;
 
-    bsp_serial_close();
+    bsp_serial_close(PING_PORT);
     rkh_tmr_stop(&me->timer);
 }
 

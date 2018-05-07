@@ -77,6 +77,12 @@
     <ClCompile Include="..\..\..\..\aos\ping\ping_ssp.c">
       <Filter>aos\ping</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\aos\pong\pong.c">
+      <Filter>aos\pong</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\aos\pong\pong_ssp.c">
+      <Filter>aos\pong</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="rkh">
@@ -103,6 +109,9 @@
     <Filter Include="aos\ping">
       <UniqueIdentifier>{81766fec-7482-427f-8c1b-51a0bc2b49d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="aos\pong">
+      <UniqueIdentifier>{6d2af2c4-35f7-4d45-8ec8-a9fd04884fdf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\bsp\80x86\win\serial\wserdefs.h">
@@ -120,6 +129,12 @@
     <ClInclude Include="..\..\..\..\rkhcfg.h" />
     <ClInclude Include="..\..\..\..\aos\ping\ping_ssp.h">
       <Filter>aos\ping</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\aos\pong\pong.h">
+      <Filter>aos\pong</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\aos\pong\pong_ssp.h">
+      <Filter>aos\pong</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

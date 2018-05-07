@@ -33,6 +33,7 @@ typedef enum Signals
 {
 	evTimeout,
 	evPong,
+	evPing,
 	evTerminate,	 /* press the key escape on the keyboard */
 	BLINKY_NUM_EVENTS
 }Signals;

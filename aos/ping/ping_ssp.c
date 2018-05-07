@@ -24,34 +24,38 @@
 /* ---------------------------- Local data types --------------------------- */
 /* ---------------------------- Global variables --------------------------- */
 /* ---------------------------- Local variables ---------------------------- */
-#if defined(RKH_USE_TRC_SENDER)
-static rui8_t ssp;
-#endif
+static SSP pingSsp;
+
+static void rcv_pong(unsigned char data);
+
+SSP_CREATE_NORMAL_NODE(pingRoot);
+SSP_CREATE_BR_TABLE(pingRoot)
+	SSPBR("pong\r\n", rcv_pong,   &pingRoot),
+SSP_END_BR_TABLE
 
 static RKH_ROM_STATIC_EVENT(e_pong, evPong);
 
 /* ----------------------- Local function prototypes ----------------------- */
-static void rcv_pong(unsigned char data);
-
 /* ---------------------------- Local functions ---------------------------- */
-SSP_CREATE_NORMAL_NODE(root);
-SSP_CREATE_BR_TABLE(root)
-	SSPBR("pong\r\n", rcv_pong,   &root),
-SSP_END_BR_TABLE
-
 static void
 rcv_pong(unsigned char data)
 {
 	(void)data;
 
-    RKH_SMA_POST_FIFO(ping, &e_pong, &ssp);
+    RKH_SMA_POST_FIFO(ping, &e_pong, &pingSsp);
 }
 
 /* ---------------------------- Global functions --------------------------- */
 void
 ping_ssp_init(void)
 {
-	ssp_init(&root);
+	ssp_init(&pingSsp, &pingRoot);
+}
+
+void
+ping_ssp_doSearch(unsigned char byte)
+{
+    ssp_doSearch(&pingSsp, byte);
 }
 
 /* ------------------------------ End of file ------------------------------ */

@@ -32,6 +32,7 @@ extern "C" {
 SSP_DCLR_NORMAL_NODE    root;
 
 void ping_ssp_init(void);
+void ping_ssp_doSearch(unsigned char byte);
 
 /* -------------------------- Function prototypes -------------------------- */
 /* -------------------- External C language linkage end -------------------- */
