@@ -57,6 +57,7 @@
 #include "pong.h"
 #include "ping_ssp.h"
 #include "pong_ssp.h"
+#include "getopt.h"
 #include "bsp.h"
 #include "rkh.h"
 #include "trace_io_cfg.h"
@@ -68,14 +69,15 @@ RKH_THIS_MODULE
 
 /* ----------------------------- Local macros ------------------------------ */
 /* ------------------------------- Constants ------------------------------- */
-#define ESC         0x1B
+#define ESC                     0x1B
+#define PINGPONG_CFG_OPTIONS    "st:f:p:m:n:h"
 
 /* ---------------------------- Local data types --------------------------- */
 /* ---------------------------- Global variables --------------------------- */
 SERIAL_T serials[NUM_CHANNELS] =
 {
-	{	"COM3",	115200, 8, PAR_NONE, STOP_1, 0 },
-	{	"COM6",	115200, 8, PAR_NONE, STOP_1, 0 },
+	{	"COM1",	115200, 8, PAR_NONE, STOP_1, 0 },
+	{	"COM2",	115200, 8, PAR_NONE, STOP_1, 0 },
 };
 
 /* ---------------------------- Local variables ---------------------------- */
@@ -86,6 +88,20 @@ static SERIAL_CBACK_T serialCback[NUM_CHANNELS] =
 };
 
 static RKH_ROM_STATIC_EVENT(e_Term, evTerminate);
+
+static char *opts = (char *)PINGPONG_CFG_OPTIONS;
+
+static const char *helpMessage =
+{
+    "\nOption usage:\n"
+	"\t -s silence\n"
+    "\t -f File name for binary trace output\n"
+    "\t -t ipaddr of TCP trace client\n"
+    "\t -p port of TCP trace client\n"
+    "\t -m Ping Serial Port\n"
+    "\t -n Pong Serial Port\n"
+    "\t -h (help)\n"
+};
 
 /* ----------------------- Local function prototypes ----------------------- */
 /* ---------------------------- Local functions ---------------------------- */
@@ -103,6 +119,45 @@ printBanner(void)
     printf("1.- Press ESC to quit \n\n\n");
 }
 
+static void
+processCmdLineOpts(int argc, char **argv)
+{
+    int c;
+
+    while ((c = getopt(argc, argv, opts)) != EOF)
+        switch (c)
+        {
+            case 'm':
+                strcpy(serials[PING_PORT].com_name, optarg);
+                break;
+
+            case 'n':
+                strcpy(serials[PONG_PORT].com_name, optarg);
+                break;
+
+			case 's':
+                trace_io_silence();
+				break;
+
+            case 'f':
+                trace_io_setFileName(optarg);
+                break;
+
+            case 't':
+                trace_io_setTcpIpAddr(optarg);
+                break;
+
+            case 'p':
+                trace_io_setTcpPort((short)atoi(optarg));
+                break;
+
+            case '?':
+            case 'h':
+                printf(helpMessage);
+                break;
+        }
+}
+
 /* ---------------------------- Global functions --------------------------- */
 void
 bsp_init(int argc, char *argv[])
@@ -112,7 +167,7 @@ bsp_init(int argc, char *argv[])
 
     printBanner();
 
-    trace_io_setConfig(argc, argv);
+	processCmdLineOpts(argc, argv);
 
     rkh_fwk_init();
 
@@ -191,5 +246,11 @@ bsp_received_pong(void)
 	printf("Pong <-\n");
 }
 
+
+void
+bsp_serialPortSelect(void)
+{
+    
+}
 
 /* ------------------------------ File footer ------------------------------ */
